@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Poppins";
+  background-image: url("../images/bg-register.webp");
+  object-fit: cover;
+}
+
+.container .logo {
+  color: whitesmoke;
+  text-align: center;
+  margin-bottom: 5px;
+  color: rgb(20, 19, 19);
+}
+
+.container .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 250px;
+  padding: 1.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8.7px);
+  -webkit-backdrop-filter: blur(8.7px);
+  border: 1px solid rgba(255, 255, 255, 0.63);
+}
+
+.container .form .message {
+  width: inherit;
+  padding: 1px 0;
+  text-align: center;
+  font-size: small;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.success-message {
+  color: rgb(1, 157, 1);
+  background-color: rgba(0, 128, 0, 0.15);
+  font-weight: medium;
+}
+.error-message {
+  color: rgb(235, 13, 13);
+  background-color: rgba(128, 0, 0, 0.15);
+  font-weight: medium;
+}
+
+.container .form input {
+  color: rgb(20, 19, 19);
+  background: none;
+  outline: none;
+  margin-bottom: 15px;
+  border: none;
+  border-bottom: 1px rgb(20, 19, 19) solid;
+}
+input:focus {
+  background-color: transparent;
+  color: rgb(20, 19, 19);
+}
+input::placeholder {
+  color: rgb(0, 0, 0);
+  font-family: "Poppins";
+  font-size: small;
+  font-weight: normal;
+}
+
+.container .form .button {
+  width: 100%;
+  padding: 5px 0;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  background-color: rgb(20, 19, 19);
+  color: white;
+  cursor: pointer;
+}
+
+.container .form .have-account {
+  text-align: center;
+  color: rgb(20, 19, 19);
+  font-size: small;
+  font-weight: 400;
+  cursor: default;
+}
+.container .form .have-account a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+}
