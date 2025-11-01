@@ -26,10 +26,10 @@ const register = async (req, res) => {
 
     switch (true) {
       case checkUsername.length > 0:
-        return sendError(res, "Username already sign up, please login", 400);
+        return sendError(res, "Username already exists", 400);
       // check baris array ada email yang sudah terdaftar.
       case existing.length > 0:
-        return sendError(res, "Email already sign up, please login", 400);
+        return sendError(res, "Email already exists", 400);
       default:
         // Simpan data ke database
         const [result] = await database.execute(sql, [
