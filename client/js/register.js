@@ -1,13 +1,16 @@
 const registerForm = document.getElementById("login-form");
 const message = document.querySelector(".message");
+const inputs = document.querySelectorAll(".input");
+
+inputs.forEach((input) => {
+  input.addEventListener("focus", () => {
+    message.innerHTML = "";
+    message.classList.remove("error-message");
+  });
+});
 
 registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  // const firstname = document.getElementById("firstname").value;
-  // const lastname = document.getElementById("lastname").value;
-  // const username = document.getElementById("username").value;
-  // const email = document.getElementById("email").value;
-  // const password = document.getElementById("password").value;
 
   const firstnameValue = event.target.firstname.value;
   const lastnameValue = event.target.lastname.value;
@@ -33,11 +36,13 @@ registerForm.addEventListener("submit", async (event) => {
     if (!response.ok) {
       const data = await response.json();
 
+      message.classList.add("error-message");
+      registerForm.reset();
       return (message.innerHTML = data.message);
     }
+    message.classList.add("success-message");
+    registerForm.reset();
     return (message.innerHTML = data.message);
-
-    window.location.href();
   } catch (error) {
     console.log(error);
   }
