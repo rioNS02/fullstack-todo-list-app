@@ -16,7 +16,7 @@ const getAllTask = async (req, res) => {
 
 // GET data Task from userID
 const getTaskByUser = async (req, res) => {
-  const { userID } = req.params;
+  const userID = req.user.userID;
   const sql = "SELECT * FROM tasks WHERE userID = ?";
 
   try {
@@ -60,7 +60,7 @@ const addTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userID } = req.body;
+    const userID = req.user.userID;
     const sql = "DELETE FROM tasks WHERE taskID = ? AND userID = ?";
 
     const [result] = await database.execute(sql, [id, userID]);
@@ -77,8 +77,9 @@ const deleteTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
+    const userID = req.user.userID;
     const { id } = req.params;
-    const { title, description, status, date_due, userID } = req.body;
+    const { title, description, status, date_due } = req.body;
     const sql =
       "UPDATE tasks SET title = ?, description = ?, status = ?, date_due = ? WHERE taskID = ? AND userID = ?";
 
