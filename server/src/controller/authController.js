@@ -1,8 +1,11 @@
 const database = require("../service/database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 const sendError = require("../helper/sendError");
 const sendSuccess = require("../helper/sendSuccess");
+
+dotenv.config();
 
 const register = async (req, res) => {
   try {
@@ -51,29 +54,35 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   const hashPassword = await bcrypt.hash(password, 10);
-  const sqlEmail = "SELECT email from users WHERE email = ?";
+  const sqlEmail = "SELECT userID, email from users WHERE email = ?";
 
   try {
     const [rows] = await database.execute(sqlEmail, [email]);
 
     // data email ada di tabel user?
     if (!rows.length) {
-      return sendError(res, "Email not found", 404);
+      return sendError(res, "Email not registered", 404);
     }
 
     const user = rows[0];
 
     // Cek password ada di tabel user?
-    const checKPassword = await bcrypt.compare(password, hashPassword);
+    const checKPassword = bcrypt.compare(password, hashPassword);
     if (!checKPassword) {
       return sendError(res, "Incorrect password", 400);
     }
-    const token = await jwt.sign(
-      { email: user.email, password: user.password },
-      process.env.SECRET_KEY
-    );
 
-    res.status(200).json({ Message: "Login succsessfull", token });
+    const payload = {
+      userID: user.userID,
+      email: user.email,
+      password: user.password,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ message: "Login succsessfull", token });
   } catch (error) {
     return sendError(res, error, 500);
   }
