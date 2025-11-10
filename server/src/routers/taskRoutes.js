@@ -7,15 +7,16 @@ const {
   updateTask,
   getTaskByUser,
 } = require("../controller/taskController");
+const authMiddleware = require("../middleware/authMiddleware");
 
 router.get("/api/v1/tasks", getAllTask);
 
-router.get("/api/v1/tasks/:userID", getTaskByUser);
+router.get("/api/v1/tasks/me", authMiddleware, getTaskByUser);
 
-router.post("/api/v1/tasks", addTask);
+router.post("/api/v1/tasks", authMiddleware, addTask);
 
-router.delete("/api/v1/tasks/:id", deleteTask);
+router.delete("/api/v1/tasks/:id", authMiddleware, deleteTask);
 
-router.put("/api/v1/tasks/:id", updateTask);
+router.put("/api/v1/tasks/:id", authMiddleware, updateTask);
 
 module.exports = router;
