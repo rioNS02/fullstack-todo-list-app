@@ -23,10 +23,11 @@
 }
 
 .container .form {
+  height: 250px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-around;
-  height: 250px;
   padding: 1.5rem 1.5rem;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 16px;
