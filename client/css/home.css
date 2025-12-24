@@ -1,0 +1,217 @@
+:root {
+  --color-bg: #ecf1fc;
+  --color-primary: #4043c9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg);
+  font-family: "Poppins";
+}
+
+.container .welcome {
+  color: var(--color-primary);
+  font-size: xx-large;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 72px;
+  margin-bottom: 16px;
+}
+
+.container .logout {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  background-color: var(--color-primary);
+  color: whitesmoke;
+  font-size: medium;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.container .add-search {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.container .add-search .search {
+  background-color: whitesmoke;
+  padding: 5px 10px;
+  font-size: medium;
+  font-family: "Poppins";
+  font-weight: 400;
+  outline: none;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+}
+.container .add-search .search::placeholder {
+  font-size: medium;
+  font-weight: 400;
+}
+
+.container .add-search .add-task-button {
+  background-color: var(--color-primary);
+  color: whitesmoke;
+  font-size: medium;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.container .cards {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  place-items: center;
+  gap: 36px;
+}
+
+.container .cards table {
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+
+.container .cards table thead tr th {
+  padding: 6px 0;
+  border: 1px solid white;
+  background-color: var(--color-primary);
+  color: whitesmoke;
+  font-size: medium;
+  font-weight: 600;
+}
+.container .cards table thead tr .description-head {
+  width: 300px;
+}
+
+.container .cards table tbody tr td {
+  border: 1px solid rgba(109, 109, 239, 0.622);
+  padding: 8px 16px;
+  background-color: whitesmoke;
+  font-size: small;
+  font-weight: 400;
+  text-align: center;
+}
+.container .cards table tbody tr .title {
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.container .cards table tbody tr .description {
+  text-align: start;
+}
+
+.container .cards table tbody .status {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.container .cards table tbody .status .status-option .button-status {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.status-bar {
+  position: absolute;
+  top: 32px;
+  right: 1px;
+  z-index: 11;
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+  background-color: var(--color-bg);
+  display: none;
+  flex-direction: column;
+}
+.show-status-bar {
+  display: flex;
+}
+
+.container .cards table tbody .status .status-option .status-bar button {
+  border: none;
+  padding: 6px 12px;
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+.container .cards table tbody .status .status-option .status-bar button:hover {
+  background-color: var(--color-primary);
+  color: #ecf1fc;
+}
+
+/* Css modal box add task */
+.container-modal-box-task {
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 0;
+  z-index: 99;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Poppins";
+}
+
+.container-modal-box-task .close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: white;
+  color: red;
+  margin-bottom: 12px;
+  font-family: "Poppins";
+  font-size: x-large;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.container-modal-box-task .form-add-task {
+  padding: 18px 16px;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 12px;
+}
+.container-modal-box-task .form-add-task input {
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.container-modal-box-task .form-add-task .description {
+  border: none;
+  border-radius: 8px;
+}
+.container-modal-box-task .form-add-task button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 8px 12px;
+  margin-top: 12px;
+  border-radius: 24px;
+  cursor: pointer;
+  border: none;
+}
