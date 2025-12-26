@@ -1,6 +1,6 @@
 :root {
   --color-bg: #ecf1fc;
-  --color-primary: #4043c9;
+  --color-primary: rgb(20, 20, 20);
 }
 
 * {
@@ -81,49 +81,67 @@
   gap: 36px;
 }
 
-.container .cards table {
-  border: 1px solid gray;
+.container .cards .container-table {
   border-collapse: collapse;
 }
 
-.container .cards table thead tr th {
+.container .cards .container-table thead {
+  border-radius: 24px;
+}
+
+th,
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+.container .cards .container-table thead tr {
+  background-color: #d5d5d5;
+}
+
+.container .cards .container-table thead tr th {
   padding: 6px 0;
-  border: 1px solid white;
-  background-color: var(--color-primary);
-  color: whitesmoke;
+  color: rgb(55, 54, 54);
   font-size: medium;
   font-weight: 600;
 }
-.container .cards table thead tr .description-head {
+.container .cards .container-table thead tr .description-head {
   width: 300px;
 }
 
-.container .cards table tbody tr {
+.container .cards .container-table tbody tr {
+  height: 100%;
   background-color: whitesmoke;
 }
-
-.container .cards table tbody tr td {
-  border: 1px solid gray;
+.container .cards .container-table tbody tr td {
   padding: 8px 16px;
   font-size: small;
   font-weight: 400;
   text-align: center;
 }
-.container .cards table tbody tr .title {
+.container .cards .container-table tbody tr .title {
   font-weight: 600;
   letter-spacing: 0;
 }
-.container .cards table tbody tr .description {
+.container .cards .container-table tbody tr .description {
   text-align: start;
 }
 
-.container .cards table tbody tr .status {
+.container .cards .container-table tbody tr .status-wrapper {
+  height: 100%;
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  gap: 18px;
+  text-align: center;
+  gap: 8px;
 }
 
-.container .cards table tbody tr .status .status-option .button-status {
+.container
+  .cards
+  .container-table
+  tbody
+  tr
+  .status-wrapper
+  .status-option
+  .button-status {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -145,7 +163,15 @@
   display: flex;
 }
 
-.container .cards table tbody tr .status .status-option .status-bar button {
+.container
+  .cards
+  .container-table
+  tbody
+  tr
+  .status-wrapper
+  .status-option
+  .status-bar
+  button {
   border: none;
   padding: 6px 12px;
   background-color: whitesmoke;
@@ -154,10 +180,10 @@
 
 .container
   .cards
-  table
+  .container-table
   tbody
   tr
-  .status
+  .status-wrapper
   .status-option
   .status-bar
   button:hover {
@@ -165,19 +191,15 @@
   color: #ecf1fc;
 }
 
-.container .cards table tbody tr .actions {
-  margin: 16px 16px;
+.container .cards .container-table tbody tr td .actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgb(55, 54, 54);
 }
 
-.container .cards table tbody tr .actions svg:hover {
+.container .cards .container-table tbody tr .actions svg:hover {
   cursor: pointer;
-}
-
-.container .cards table tbody tr .actions .delete {
-  color: red;
-}
-.container .cards table tbody tr .actions .edit {
-  color: green;
 }
 
 /* Css modal box add task */
