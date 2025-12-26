@@ -152,7 +152,13 @@ const getTask = async () => {
                   </div>
                 </div>
               </td>
+              <td class="actions">
+                <i class="delete" data-feather="trash-2" width="18px"></i>
+                <i class="edit" data-feather="edit" width="18px"></i>
+              </td>
             </tr>`;
+
+      feather.replace();
     });
   } catch (error) {
     console.log(error);
