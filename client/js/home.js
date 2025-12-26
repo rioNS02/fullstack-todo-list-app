@@ -134,7 +134,8 @@ const getTask = async () => {
               <td class="title">${task.title}</td>
               <td class="description">${task.description}</td>
               <td>${asiaDate}</td>
-              <td class="status">
+              <td >
+              <div class="status-wrapper">
                 <span class="status-print">${task.status}</span>
                 <div class="status-option">
                   <button class="button-status" type="button" value="${task.taskID}">
@@ -152,9 +153,11 @@ const getTask = async () => {
                   </div>
                 </div>
               </td>
-              <td class="actions">
-                <i class="delete" data-feather="trash-2" width="18px"></i>
-                <i class="edit" data-feather="edit" width="18px"></i>
+              <td >
+              <div class="actions">
+              <i class="delete" data-feather="trash-2" width="18px"></i>
+              <i class="edit" data-feather="edit" width="18px"></i></div>
+              </div>
               </td>
             </tr>`;
 
