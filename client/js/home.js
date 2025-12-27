@@ -5,13 +5,21 @@ const container = document.querySelector(".container");
 // Using click container = event bubbling
 container.addEventListener("click", (event) => {
   // create logout
-  const logOut = event.target.closest(".logout");
-  if (logOut) {
+  if (event.target.className === "logout") {
     event.preventDefault();
-
-    localStorage.removeItem("token");
-    window.location = "login.html";
-    return;
+    Swal.fire({
+      title: "Apakah kamu ingin keluar",
+      showDenyButton: true,
+      confirmButtonText: "Iya",
+      denyButtonText: `Tidak`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Keluar", "", "success");
+        localStorage.removeItem("token");
+        window.location = "login.html";
+        return;
+      }
+    });
   }
   //create click button status
   const buttonStatus = event.target.closest(".button-status");
@@ -64,6 +72,7 @@ container.addEventListener("click", (event) => {
   }
 });
 
+/* Get user  */
 const getUser = async () => {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -94,8 +103,9 @@ const getUser = async () => {
   }
 };
 getUser();
+/* Get user  */
 
-// Get task user login
+/* Get task user  */
 const getTask = async () => {
   const token = localStorage.getItem("token");
 
@@ -130,36 +140,36 @@ const getTask = async () => {
       });
 
       tableBody.innerHTML += `
-            <tr>
-              <td class="title">${task.title}</td>
-              <td class="description">${task.description}</td>
-              <td>${asiaDate}</td>
-              <td >
-              <div class="status-wrapper">
-                <span class="status-print">${task.status}</span>
-                <div class="status-option">
-                  <button class="button-status" type="button" value="${task.taskID}">
-                    <img
-                      src="./images/icons/up-down-arrow.webp"
-                      alt="up down arrow"
-                    />
-                  </button>
-                  <div class="status-bar" data-taskid="${task.taskID}">
-                    <button class="status" value="pending">pending</button>
-                    <button class="status" value="on_progress">
-                      on progress
-                    </button>
-                    <button class="status" value="done">done</button>
-                  </div>
-                </div>
-              </td>
-              <td >
-              <div class="actions">
-              <i class="delete" data-feather="trash-2" width="18px"></i>
-              <i class="edit" data-feather="edit" width="18px"></i></div>
-              </div>
-              </td>
-            </tr>`;
+      <tr>
+        <td class="title">${task.title}</td>
+        <td class="description">${task.description}</td>
+        <td>${asiaDate}</td>
+        <td >
+          <div class="status-wrapper">
+      <span class="status-print">${task.status}</span>
+      <div class="status-option">
+      <button class="button-status" type="button" value="${task.taskID}">
+      <img
+      src="./images/icons/up-down-arrow.webp"
+      alt="up down arrow"
+      />
+      </button>
+      <div class="status-bar" data-taskid="${task.taskID}">
+      <button class="status" value="pending">pending</button>
+      <button class="status" value="on_progress">
+      on progress
+      </button>
+      <button class="status" value="done">done</button>
+      </div>
+      </div>
+      </td>
+      <td >
+      <div class="actions">
+      <i class="delete" data-feather="trash-2" width="18px" data-taskid="${task.taskID}"></i>
+      <i class="edit" data-feather="edit" width="18px"></i></div>
+      </div>
+        </td>
+      </tr>`;
 
       feather.replace();
     });
@@ -168,6 +178,7 @@ const getTask = async () => {
   }
 };
 getTask();
+/* Get task user  */
 
 /* Javascript Modal box add task */
 
