@@ -47,11 +47,10 @@
       </div>
     </div>
 
-    <!-- Create modal box add task -->
-
+    <!-- modal box add task -->
     <div class="container-modal-box-task">
       <div class="close">X</div>
-      <form class="form-add-task" method="post">
+      <form class="form-add-task">
         <div>
           <label for="title"> Title : </label>
           <input type="text" name="title" id="title" required />
@@ -71,6 +70,32 @@
         <button type="submit">Add task</button>
       </form>
     </div>
+    <!-- modal box add task -->
+
+    <!-- Modal box update task -->
+    <div class="container-modal-box-task">
+      <div class="close">X</div>
+      <form class="form-update-task">
+        <div>
+          <label for="title"> Title : </label>
+          <input type="text" name="title" id="title" required />
+        </div>
+        <label for="description"> Description : </label>
+        <textarea
+          class="description"
+          name="description"
+          id="description"
+          rows="5"
+          cols="4"
+        ></textarea>
+        <div>
+          <label for="date"> Date : </label>
+          <input type="date" name="date" id="date" required />
+        </div>
+        <button type="submit">Add task</button>
+      </form>
+    </div>
+    <!-- Modal box update task -->
   </body>
   <script src="js/home.js"></script>
   <!-- Sweet alert -->
