@@ -70,6 +70,48 @@ container.addEventListener("click", (event) => {
     };
     updateStatusTask();
   }
+
+  // Create delete task
+  const deleteTask = document.querySelector(".delete");
+
+  deleteTask.addEventListener("click", (event) => {
+    event.preventDefault();
+    Swal.fire({
+      title: "Apakah kamu ingin menghapus task ini?",
+      showDenyButton: true,
+      confirmButtonText: "Iya",
+      denyButtonText: `Tidak`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Dihapus", "", "success");
+
+        // fetching data delete
+        const taskID = event.target.closest(".delete").dataset.taskid;
+        const token = localStorage.getItem("token");
+
+        const deleteTaskApi = async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:3000/api/v1/tasks/${taskID}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                credentials: "include",
+              }
+            );
+
+            if (!response.ok) return console.log(response.status);
+            window.location.reload();
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        deleteTaskApi();
+      }
+    });
+  });
 });
 
 /* Get user  */
