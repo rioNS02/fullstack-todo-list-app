@@ -72,46 +72,51 @@ container.addEventListener("click", (event) => {
   }
 
   // Create delete task
-  const deleteTask = document.querySelector(".delete");
 
-  deleteTask.addEventListener("click", (event) => {
-    event.preventDefault();
-    Swal.fire({
-      title: "Apakah kamu ingin menghapus task ini?",
-      showDenyButton: true,
-      confirmButtonText: "Iya",
-      denyButtonText: `Tidak`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Dihapus", "", "success");
+  const deleteTask = document.querySelectorAll(".delete");
 
-        // fetching data delete
-        const taskID = event.target.closest(".delete").dataset.taskid;
-        const token = localStorage.getItem("token");
+  deleteTask.forEach((buttonDelete) => {
+    buttonDelete.addEventListener("click", (event) => {
+      event.preventDefault();
+      Swal.fire({
+        title: "Apakah kamu ingin menghapus task ini?",
+        showDenyButton: true,
+        confirmButtonText: "Iya",
+        denyButtonText: `Tidak`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Dihapus", "", "success");
 
-        const deleteTaskApi = async () => {
-          try {
-            const response = await fetch(
-              `http://localhost:3000/api/v1/tasks/${taskID}`,
-              {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                credentials: "include",
-              }
-            );
+          // fetching data delete
+          const taskID = event.target.closest(".delete").dataset.taskid;
+          const token = localStorage.getItem("token");
 
-            if (!response.ok) return console.log(response.status);
-            window.location.reload();
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        deleteTaskApi();
-      }
+          const deleteTaskApi = async () => {
+            try {
+              const response = await fetch(
+                `http://localhost:3000/api/v1/tasks/${taskID}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                  credentials: "include",
+                }
+              );
+
+              if (!response.ok) return console.log(response.status);
+              window.location.reload();
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          deleteTaskApi();
+        }
+      });
     });
   });
+
+  /* UPDATE TASK */
 });
 
 /* Get user  */
@@ -182,36 +187,34 @@ const getTask = async () => {
       });
 
       tableBody.innerHTML += `
-      <tr>
-        <td class="title">${task.title}</td>
-        <td class="description">${task.description}</td>
-        <td>${asiaDate}</td>
-        <td >
-          <div class="status-wrapper">
-      <span class="status-print">${task.status}</span>
-      <div class="status-option">
-      <button class="button-status" type="button" value="${task.taskID}">
-      <img
-      src="./images/icons/up-down-arrow.webp"
-      alt="up down arrow"
-      />
-      </button>
-      <div class="status-bar" data-taskid="${task.taskID}">
-      <button class="status" value="pending">pending</button>
-      <button class="status" value="on_progress">
-      on progress
-      </button>
-      <button class="status" value="done">done</button>
-      </div>
-      </div>
-      </td>
-      <td >
-      <div class="actions">
-      <i class="delete" data-feather="trash-2" width="18px" data-taskid="${task.taskID}"></i>
-      <i class="edit" data-feather="edit" width="18px"></i></div>
-      </div>
-        </td>
-      </tr>`;
+          <tr>
+            <td class="title">${task.title}</td>
+            <td class="description">${task.description}</td>
+            <td>${asiaDate}</td>
+            <td>
+              <div class="status-wrapper">
+                <span class="status-print">${task.status}</span>
+                <div class="status-option">
+                  <button class="button-status" type="button" value="${task.taskID}">
+                    <img src="./images/icons/up-down-arrow.webp" alt="up down arrow" />
+                  </button>
+                  <div class="status-bar" data-taskid="${task.taskID}">
+                    <button class="status" value="pending">pending</button>
+                    <button class="status" value="on_progress">
+                      on progress
+                    </button>
+                    <button class="status" value="done">done</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="actions">
+                <i class="delete" data-feather="trash-2" width="18px" data-taskid="${task.taskID}"></i>
+                <i class="edit" data-feather="edit" width="18px"></i>
+              </div>
+            </td>
+          </tr>`;
 
       feather.replace();
     });
