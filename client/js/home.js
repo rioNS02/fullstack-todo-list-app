@@ -21,6 +21,8 @@ container.addEventListener("click", (event) => {
       }
     });
   }
+
+  /* UPDATE STATUS TASK */
   //create click button status
   const buttonStatus = event.target.closest(".button-status");
   if (buttonStatus) {
@@ -33,7 +35,6 @@ container.addEventListener("click", (event) => {
     return;
   }
 
-  // Create button status bar
   if (event.target.className === "status") {
     const statusBar = event.target.closest(".status-bar");
     statusBar.classList.remove("show-status-bar");
@@ -70,14 +71,15 @@ container.addEventListener("click", (event) => {
     };
     updateStatusTask();
   }
+  /* UPDATE STATUS TASK */
 
-  // Create delete task
-
+  /* DELETE TASK */
   const deleteTask = document.querySelectorAll(".delete");
 
   deleteTask.forEach((buttonDelete) => {
     buttonDelete.addEventListener("click", (event) => {
       event.preventDefault();
+      console.log("delete");
       Swal.fire({
         title: "Apakah kamu ingin menghapus task ini?",
         showDenyButton: true,
@@ -113,9 +115,31 @@ container.addEventListener("click", (event) => {
           deleteTaskApi();
         }
       });
+      event.stopPropagation();
+    });
+  });
+  /* DELETE TASK */
+
+  /* UPDATE TASK */
+  const modalBoxUpdateTask = document.querySelector(
+    ".container-modal-box-update-task"
+  );
+  const closeUpdateTask = document.querySelector(".close-update-task");
+  const updateTask = document.querySelectorAll(".edit");
+  updateTask.forEach((buttonEdit) => {
+    buttonEdit.addEventListener("click", (event) => {
+      event.preventDefault();
+      modalBoxUpdateTask.style.display = "flex";
+
+      event.stopPropagation();
     });
   });
 
+  // create button close update task
+  closeUpdateTask.addEventListener("click", (event) => {
+    event.preventDefault();
+    modalBoxUpdateTask.style.display = "none";
+  });
   /* UPDATE TASK */
 });
 
@@ -229,7 +253,7 @@ getTask();
 
 // Create button add task
 const addTaskButton = document.querySelector(".add-task-button");
-const close = document.querySelector(".close");
+const close = document.querySelector(".close-add-task");
 const modalBoxTask = document.querySelector(".container-modal-box-task");
 
 addTaskButton.addEventListener("click", (event) => {
