@@ -218,7 +218,7 @@ td {
   font-family: "Poppins";
 }
 
-.container-modal-box-task .close {
+.container-modal-box-task .close-add-task {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,7 +263,38 @@ td {
 }
 
 /* Modal box update task */
-.container-modal-box-task .form-update-task {
+.container-modal-box-update-task {
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  top: 0;
+  z-index: 99;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Poppins";
+}
+
+.container-modal-box-update-task .close-update-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: white;
+  color: red;
+  margin-bottom: 12px;
+  font-family: "Poppins";
+  font-size: x-large;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.container-modal-box-update-task .form-update-task {
   padding: 18px 16px;
   background-color: var(--color-bg);
   display: flex;
@@ -271,13 +302,13 @@ td {
   gap: 16px;
   border-radius: 12px;
 }
-.container-modal-box-task .form-update-task input {
+.container-modal-box-update-task .form-update-task input {
   border: 1px solid var(--color-primary);
   border-radius: 6px;
   padding: 4px;
 }
 
-.container-modal-box-task .form-update-task .description {
+.container-modal-box-update-task .form-update-task .description {
   border: none;
   border-radius: 8px;
 }
