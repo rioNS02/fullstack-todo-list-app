@@ -312,3 +312,13 @@ td {
   border: none;
   border-radius: 8px;
 }
+
+.container-modal-box-update-task .form-update-task .update-task {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 8px 12px;
+  margin-top: 12px;
+  border-radius: 24px;
+  cursor: pointer;
+  border: none;
+}
