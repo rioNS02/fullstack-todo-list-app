@@ -121,16 +121,69 @@ container.addEventListener("click", (event) => {
   /* DELETE TASK */
 
   /* UPDATE TASK */
+  const formUpdateTask = document.querySelector(".form-update-task");
   const modalBoxUpdateTask = document.querySelector(
     ".container-modal-box-update-task"
   );
   const closeUpdateTask = document.querySelector(".close-update-task");
   const updateTask = document.querySelectorAll(".edit");
   updateTask.forEach((buttonEdit) => {
-    buttonEdit.addEventListener("click", (event) => {
+    buttonEdit.addEventListener("click", async (event) => {
+      const taskID = event.target.closest(".edit").dataset.taskid;
+
       event.preventDefault();
       modalBoxUpdateTask.style.display = "flex";
+      // get task form input update task
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch("http://localhost:3000/api/v1/tasks/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) return console.log(response.status);
 
+        const { message, data } = await response.json();
+
+        const tasks = data.find((task) => task.taskID == taskID);
+        console.log(tasks);
+
+        const date = tasks.date_due.split("T")[0];
+        console.log(date);
+
+        // rendering form update task
+
+        formUpdateTask.innerHTML = `
+          <input type="hidden" name="task_id" id="task_id" value="${tasks.taskID}">
+        <div>
+          <label for="title"> Title : </label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="${tasks.title}"
+            required
+          />
+        </div>
+        <label for="description"> Description : </label>
+        <textarea
+          class="description"
+          name="description"
+          id="description"
+          rows="5"
+          cols="4"
+        >
+${tasks.description}</textarea
+        >
+        <div>
+          <label for="date"> Date : </label>
+          <input type="date" name="date" id="date" value="${date}" required />
+        </div>
+        <button type="submit" class="update-task">Update task</button>
+        `;
+      } catch (error) {
+        console.log(error);
+      }
       event.stopPropagation();
     });
   });
@@ -235,7 +288,7 @@ const getTask = async () => {
             <td>
               <div class="actions">
                 <i class="delete" data-feather="trash-2" width="18px" data-taskid="${task.taskID}"></i>
-                <i class="edit" data-feather="edit" width="18px"></i>
+                <i class="edit" data-feather="edit" width="18px" data-taskid="${task.taskID}"></i>
               </div>
             </td>
           </tr>`;
