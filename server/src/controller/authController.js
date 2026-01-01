@@ -85,7 +85,47 @@ const login = async (req, res) => {
   res.status(200).json({ message: "login success", accessToken, refreshToken });
 };
 
+// create refresh controller
+const refresh = async (req, res) => {
+  const cookies = req.cookies.refreshToken;
+
+  if (!cookies) {
+    res.status(401).json({ message: "no refresh token." });
+  }
+  try {
+    const verified = jwt.verify(
+      cookies,
+      process.env.REFRESH_TOKEN_SECRET,
+      (err, decode) => {
+        if (err) {
+          res.status(403).json({ message: "Invalid refresh token" });
+        }
+      }
+    );
+
+    if (!verified) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid token, please try again" });
+    }
+
+    const accessToken = jwt.sign(
+      { userID: verified.userID },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Refresh token success", accessToken });
+  } catch (error) {
+    sendError(res, error, 500);
+  }
+};
 module.exports = {
   register,
   login,
+  refresh,
 };
