@@ -79,7 +79,6 @@ container.addEventListener("click", (event) => {
   deleteTask.forEach((buttonDelete) => {
     buttonDelete.addEventListener("click", (event) => {
       event.preventDefault();
-      console.log("delete");
       Swal.fire({
         title: "Apakah kamu ingin menghapus task ini?",
         showDenyButton: true,
@@ -129,11 +128,10 @@ container.addEventListener("click", (event) => {
   const updateTask = document.querySelectorAll(".edit");
   updateTask.forEach((buttonEdit) => {
     buttonEdit.addEventListener("click", async (event) => {
-      const taskID = event.target.closest(".edit").dataset.taskid;
-
       event.preventDefault();
       modalBoxUpdateTask.style.display = "flex";
       // get task form input update task
+      const taskID = event.target.closest(".edit").dataset.taskid;
       const token = localStorage.getItem("token");
       try {
         const response = await fetch("http://localhost:3000/api/v1/tasks/me", {
@@ -184,7 +182,47 @@ ${tasks.description}</textarea
       } catch (error) {
         console.log(error);
       }
-      event.stopPropagation();
+      // event.stopPropagation();
+    });
+
+    // fetching api update task
+    formUpdateTask.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const token = localStorage.getItem("token");
+      const taskID = event.target.task_id.value;
+      const title = event.target.title.value;
+      const description = event.target.description.value;
+      const dateDue = event.target.date.value;
+
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/v1/tasks/${taskID}`,
+          {
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: title,
+              description: description,
+              date_due: dateDue,
+            }),
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) return console.log(response.status);
+
+        const data = await response.json();
+
+        Swal.fire("Update task successfull", " ", "success");
+
+        console.log(data);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 
