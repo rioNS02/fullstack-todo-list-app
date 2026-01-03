@@ -17,6 +17,7 @@ const getAllTask = async (req, res) => {
 // GET data Task from userID
 const getTaskByUser = async (req, res) => {
   const userID = req.user.userID;
+
   const sql = "SELECT * FROM tasks WHERE userID = ?";
 
   try {
@@ -33,22 +34,17 @@ const getTaskByUser = async (req, res) => {
 
 // CREATE DATA TASK
 const addTask = async (req, res) => {
+  const userID = req.user.userID;
+  const { title, description, date_due } = req.body;
+  const sql = `INSERT INTO tasks (userID, title, description, date_due) 
+                VALUES (?, ?, ?, ?)`;
   try {
-    const sql = `INSERT INTO tasks (title, description, status, date_due, userID) VALUES (?,?,?,?,?)`;
-    const { title, description, status, date_due, userID } = req.body;
-
     const [result] = await database.execute(sql, [
+      userID,
       title,
       description,
-      status,
       date_due,
-      userID,
     ]);
-
-    // Cek apakah ada data user yang bisa menambahkan task
-    if (!userID) {
-      return sendError(res, "User not found", 404);
-    }
 
     return sendSuccess(res, "Add task successfull", 200);
   } catch (error) {
@@ -79,14 +75,13 @@ const updateTask = async (req, res) => {
   try {
     const userID = req.user.userID;
     const { id } = req.params;
-    const { title, description, status, date_due } = req.body;
+    const { title, description, date_due } = req.body;
     const sql =
-      "UPDATE tasks SET title = ?, description = ?, status = ?, date_due = ? WHERE taskID = ? AND userID = ?";
+      "UPDATE tasks SET title = ?, description = ?, date_due = ? WHERE taskID = ? AND userID = ?";
 
     const [result] = await database.execute(sql, [
       title,
       description,
-      status,
       date_due,
       id,
       userID,
@@ -102,10 +97,45 @@ const updateTask = async (req, res) => {
   }
 };
 
+/* Updata status enum task */
+const updateStatusTask = async (req, res) => {
+  const userID = req.user.userID;
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const statusAllowed = ["pending", "on_progress", "done"];
+
+  // Check input status user
+  if (!statusAllowed.includes(status)) {
+    return res.status(404).json({ message: "Please input status allowed" });
+  }
+
+  try {
+    // Update status
+    const updateStatusSql =
+      "UPDATE tasks SET status = ? WHERE taskID = ? AND userID = ?";
+    const [existing] = await database.execute(updateStatusSql, [
+      status,
+      id,
+      userID,
+    ]);
+
+    // Check data task found
+    if (existing.affectedRows === 0) {
+      return sendError(res, "Task not found", 404);
+    }
+
+    return sendSuccess(res, "update status successfull", 200);
+  } catch (error) {
+    sendError(res, error, 500);
+  }
+};
+
 module.exports = {
   getAllTask,
   getTaskByUser,
   addTask,
   deleteTask,
   updateTask,
+  updateStatusTask,
 };
