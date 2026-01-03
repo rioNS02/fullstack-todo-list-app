@@ -322,3 +322,38 @@ td {
   cursor: pointer;
   border: none;
 }
+
+/* RESPONSIVE DESIGN */
+/* Mobile media query*/
+@media screen and (min-width: 380px) and (max-width: 600px) {
+  .container .welcome {
+    font-size: medium;
+  }
+  .container .logout {
+    font-size: smaller;
+    font-weight: 600;
+  }
+  .container .add-search .search {
+    font-size: smaller;
+  }
+
+  .container .add-search .search::placeholder {
+    font-size: small;
+  }
+
+  .container .add-search .add-task-button {
+    font-size: small;
+    font-weight: 600;
+    padding: 4px 10px;
+  }
+  .container .cards {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .status-bar {
+    top: 18px;
+  }
+}
+
+/* RESPONSIVE DESIGN */
