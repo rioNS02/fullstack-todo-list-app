@@ -16,11 +16,12 @@ const getAllUser = async (req, res) => {
 
 // Get user by id
 const getUser = async (req, res) => {
-  const { id } = req.params;
+  const userID = req.user.userID;
+
   const sql = "SELECT * FROM users WHERE userID = ?";
 
   try {
-    const [rows] = await database.execute(sql, [id]);
+    const [rows] = await database.execute(sql, [userID]);
 
     // Cek jika tidak ada data
     if (rows.length === 0) {
