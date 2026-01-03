@@ -4,8 +4,9 @@ const sendError = require("../helper/sendError");
 
 dotenv.config();
 
-const authMiddleware = async (req, res, next) => {
+const authAccess = async (req, res, next) => {
   const authorization = req.headers.authorization;
+
   const token = authorization.split(" ")[1];
 
   try {
@@ -13,7 +14,7 @@ const authMiddleware = async (req, res, next) => {
       return sendError(res, "Anauthorization", 401);
     }
 
-    const verified = await jwt.verify(token, process.env.SECRET_KEY);
+    const verified = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     req.user = verified;
     next();
@@ -22,4 +23,4 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+module.exports = { authAccess };
