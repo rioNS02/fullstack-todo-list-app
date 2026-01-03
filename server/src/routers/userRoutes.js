@@ -5,11 +5,12 @@ const {
   getUser,
   deleteUser,
 } = require("../controller/userController");
+const { authAccess } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/api/v1/user", getAllUser);
-router.get("/api/v1/user/:id", getUser);
+router.get("/api/v1/users", getAllUser);
+router.get("/api/v1/users/me", authAccess, getUser);
 router.put("/api/v1/user/:id", updateUser);
 router.delete("/api/v1/user/:id", deleteUser);
 
